@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  staticserver:
+    build: /home/favio/composeset/nginxs
+    ports: 
+    - 8080:90
+    volumes:
+    - /home/favio/composeset/nginxs/web:/usr/share/nginx/html
+

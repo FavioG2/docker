@@ -1,0 +1,19 @@
+
+<form action="{{ url_for('submit') }}" method="post">
+    <h1> Insertar producto </h1>
+    Nombre del producto
+    <textarea name="producto"></textarea>
+    <br>
+    Descripción
+    <textarea name="descripcion"></textarea>
+    <br>
+    <input type="submit" text="ingresa producto">
+</form>
+
+<form action="{{ url_for('leer') }}" method="post">
+    <h1> Buscar Descripción </h1>
+    Nombre del producto
+    <textarea name="producto"></textarea>
+    <br>
+    <input type="submit" text="buscar!">
+</form>
