@@ -3,18 +3,20 @@ version: '2'
 
 services:
     reverseproxy:
-        build: /home/favio/composeset2
+        build: /home/favio/composeset/docker/nginxp
         ports:
             - 8080:8080
             - 8081:8081
         restart: always
 
     nginx:
-        build: /home/favio/composeset/nginxs
+        build: /home/favio/composeset/docker/nginxs
         depends_on:
             - reverseproxy
+        ports:
+            - 80:80
         volumes:
-            - /home/favio/composeset/nginxs/web:/usr/share/nginx/html
+            - /home/favio/composeset/docker/nginxs/web:/usr/share/nginx/html
         restart: always
 
     redis:
@@ -22,11 +24,11 @@ services:
         restart: always
 
     flask:
-        build: /home/favio/composeset/python
+        build: /home/favio/composeset/docker/python
         depends_on:
             - reverseproxy
             - redis
         volumes:
-        - /home/favio/composeset/python/flaskapp:/flaskapp        
+        - /home/favio/composeset/docker/python/flaskapp:/flaskapp        
         stdin_open: true
         tty: true

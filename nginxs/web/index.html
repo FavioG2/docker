@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html><head><title>Docker Static Example</title></head>
-<body><h1>contenido estatico alv</h1></body>
-i azi bien eztatiko k lo puedo knviar jj
+<html>
+<body>
+
+<div id="demo">
+<h2>The XMLHttpRequest Object</h2>
+<button type="button" onclick="handlerFunction()">Change Content</button>
+</div>
+
+<script language="JavaScript"
+  type="text/javascript" src="xmlhttp.js"></script>
+<script language="JavaScript"
+ type="text/javascript">
+
+
+function handlerFunction() {
+	var xmlHttp = new XMLHttpRequest();
+    var theUrl = "http://reverseproxy:8081/api"
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+  
+}
+
+</script>
+
+</body>
 </html>
-
-
-
-
-

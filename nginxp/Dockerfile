@@ -1,11 +1,3 @@
-FROM nginx
+FROM nginx:alpine
 
-MAINTAINER Favio Gonzalez
-
-USER root
-
-RUN apt-get update
-RUN rm -v /etc/nginx/nginx.conf
-
-ADD nginx.conf /etc/nginx/
-
+COPY nginx.conf /etc/nginx/nginx.conf
