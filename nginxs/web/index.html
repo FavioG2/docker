@@ -3,8 +3,11 @@
 <body>
 
 <div id="demo">
-<h2>The XMLHttpRequest Object</h2>
-<button type="button" onclick="handlerFunction()">Change Content</button>
+<h2>Inserte su comentario...</h2>
+ Nombre de usuario: <input type="text" id="name"><br>
+ Comentario: <textarea type="text" rows = "5" id="desc"></textarea><br>
+<button type="button" onclick="handlerFunction()">Insertar Comentario</button>
+<button type="button" onclick="consultar()">Consultar comentario</button>
 </div>
 
 <script language="JavaScript"
@@ -15,12 +18,47 @@
 
 function handlerFunction() {
 	var xmlHttp = new XMLHttpRequest();
-    var theUrl = "http://reverseproxy:8081/api"
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-  
+    var url = "http://127.0.0.1:8081/submit";
+    var http = new XMLHttpRequest();
+	var email = document.getElementById("desc").value;
+	//var password = document.getElementById('pass');
+	var nombre = document.getElementById("name").value;
+	console.log(nombre);
+	http.open("POST", url, true);
+
+	http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	http.onreadystatechange = function() {
+	    if(http.readyState == 4 && http.status == 200) { 
+	       //aqui obtienes la respuesta de tu peticion
+	       alert(http.responseText);
+	    }
+	}
+
+	http.send(JSON.stringify({"desc":email, "nombre" : nombre}));
+	  
+	}
+
+function consultar() {
+	var xmlHttp = new XMLHttpRequest();
+    var url = "http://127.0.0.1:8081/leer";
+    var http = new XMLHttpRequest();
+	var nombre = document.getElementById('name').value;
+	http.open("POST", url, true);
+
+	http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	http.onreadystatechange = function() {
+	    if(http.readyState == 4 && http.status == 200) { 
+	       //aqui obtienes la respuesta de tu peticion
+	       alert("ultimo comentario de " + nombre + ": " + http.responseText);
+			document.getElementById('desc').value = http.responseText;
+	    }
+	}
+
+	http.send(JSON.stringify({"nombre" : nombre}));
+	  
 }
+
+
 
 </script>
 

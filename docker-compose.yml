@@ -32,3 +32,4 @@ services:
         - /home/favio/composeset/docker/python/flaskapp:/flaskapp        
         stdin_open: true
         tty: true
+        command: python /flaskapp/helloworld.py

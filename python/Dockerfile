@@ -7,6 +7,7 @@ RUN apt-get install --assume-yes python-virtualenv
 RUN cd flaskapp
 RUN pip install flask
 RUN pip install redis
+RUN pip install -U flask_cors
 RUN echo hola
 
 EXPOSE 5000

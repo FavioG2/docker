@@ -1,5 +1,9 @@
 from flask import Flask, jsonify, request
+import redis
+from flask_cors import CORS
 app = Flask(__name__)
+r = redis.StrictRedis(host= 'redis', port=6379, db=0)
+cors = CORS(app, resorces={r'/*': {"origins": '*'}})
 
 empDB=[
  {
@@ -15,14 +19,17 @@ def hello():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    nombre = request.form['producto']
-    desc = request.form['descripcion']
+    content = request.json
+    nombre = content['nombre']
+    desc = content['desc']
+    print(nombre)
     r.set(nombre, desc)
-    return 'Ingresó el producto - ' + nombre + ': ' + desc
+    return 'Usuario: ' + nombre + ", comentario: " + desc
 
 @app.route('/leer', methods=['POST'])
 def leer():
-    nombre = request.form['producto']
+    content = request.json
+    nombre = content['nombre']
     return r.get(nombre)
 
 
